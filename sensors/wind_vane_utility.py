@@ -6,33 +6,27 @@ created by: Brad Allen
 project/support: voyager2 / NomiNomi      # root or script it supports
 description:  Full package to read wind using ADS1115 A to D converter
 
-
+Runs as an indendent self-test as well
 
 rev 0.0.1 initial DEV
 '''
 __revision__ = 'v0.0.1'
 __status__ = 'DEV' # 'DEV', 'alpha', 'beta', 'production'
 
+import bisect
 
-from ads1115v import ADS1115
+import ads1115driver as ADC
 
 class Wind_Vane:
     def __init__(self):
         '''Set up ADS1115
         '''
-        self.sense_ads1115 = ADS1115(self)
-
-        # use config I2C address if it exists
-        try:
-            config.ADS1115_I2C_address
-        except AttributeError:
-            # indicates no I2C address in config, use default
-            pass
-        else:
-            self.mgr.sensor_ref['ADS1115']['I2C_address'] = config.ADS1115_I2C_address
-
+        print('\n\n### init Wind Vane)')
         #### Instantiate sensor object
-        self.sensor = ADS1115a_to_d(self.mgr.sensor_ref['ADS1115']['I2C_address'])
+        # I2C address can be adjusted or assigned here
+        self.sense_ads1115 = ADC.ADS1115(
+            address=0x48,
+            )
 
         #### Sensor data
         self.volt_0 = 0.0
@@ -169,7 +163,7 @@ class Wind_Vane:
         Convert to zone
         Returns None for error
         '''
-        wind_volts = self.sense_ads1115.get_volt0(True, False)  
+        wind_volts = self.get_volt0(True, False)  
         #print(f'wind_volts: {wind_volts}')
 
         # check if bad sensor or before first sense
@@ -194,29 +188,29 @@ class Wind_Vane:
         '''
         # Read channel 0
         try:
-            self.volt_0 = self.sensor.readADCSingleEnded(0)
+            self.volt_0 = self.sense_ads1115.readADCSingleEnded(0)
         except OSError:
-            self.err_log.log_error(f'ADS1115 A to D channel 0 did not read correctly')
+            print(f'ADS1115 A to D channel 0 did not read correctly')
 
         # Read channel 1
         try:
-            self.volt_1 = self.sensor.readADCSingleEnded(1)
+            self.volt_1 = self.sense_ads1115.readADCSingleEnded(1)
             # print(f'\n\n&&&&& read volt_1: {self.volt_1}')
         except OSError:
-            self.err_log.log_error(f'ADS1115 A to D channel 1 did not read correctly')
+            print(f'ADS1115 A to D channel 1 did not read correctly')
 
         # Read channel 2
         try:
-            self.volt_2 = self.sensor.readADCSingleEnded(2)
+            self.volt_2 = self.sense_ads1115.readADCSingleEnded(2)
         except OSError:
-            self.err_log.log_error(f'ADS1115 A to D channel 2 did not read correctly')
+            print(f'ADS1115 A to D channel 2 did not read correctly')
 
         # Read channel 3
         try:
-            self.volt_3 = self.sensor.readADCSingleEnded(3)
+            self.volt_3 = self.sense_ads1115.readADCSingleEnded(3)
             # print(f'\n\n&&&&& read volt_3: {self.volt_3}')
         except OSError:
-            self.err_log.log_error(f'ADS1115 A to D channel 3 did not read correctly')
+            print(f'ADS1115 A to D channel 3 did not read correctly')
 
         
 
