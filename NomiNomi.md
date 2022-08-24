@@ -41,21 +41,25 @@ network={
 
 ```
 # Aug 2022 list
-LCD	0x23
-ADC (wind/volt)
-
-BNo055 (compass)
+LCD					0x23
+ADC (wind/volt)		0x48
+DS1307 RTC			0x68
+BNo055 (compass)	0x69
 Ultimate GPS
 
 # ### OLD
-DS1307 RTC		0x68
+
 LCD				0x23
 ADC (wind/volt)	0x49	
 servo board		0x40
 9-axis accel	0x69 (or 0x68)
 ```
 
+#### Compass
 
+https://peppe8o.com/magnetometer-with-raspberry-pi-computers-gy-271-hmc5883l-wiring-and-code/
+
+for yacht:  https://www.roboticboat.uk/Microcontrollers/RaspberryPi3/CMPS14/CMPS14.html
 
 ## Software Technical Notes
 
