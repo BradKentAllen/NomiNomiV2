@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-file name:  wind.py
+file name:  wind_vane_utility.py
 date created:  August 22, 2022
 created by: Brad Allen
 project/support: voyager2 / NomiNomi      # root or script it supports
