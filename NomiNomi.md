@@ -42,8 +42,10 @@ network={
 ```
 # Aug 2022 list
 LCD					0x23
+BNo055				0x28
 ADC (wind/volt)		0x48
-DS1307 RTC			0x68
+ADXL345				0x53
+DS1307 RTC			0x68 (will show as UU)
 BNo055 (compass)	0x69
 Ultimate GPS
 
@@ -64,6 +66,7 @@ for yacht:  https://www.roboticboat.uk/Microcontrollers/RaspberryPi3/CMPS14/CMPS
 ## Software Technical Notes
 
 - GPS
+    - When there is no fix, the FIX pin and Red LED  pulse up and down once every second. When there is a fix, the pin is low (0V) for most of the time, once every 15 seconds it will pulse high for 200 milliseconds
     - GPS returns NMEA in format DDMM.MMMM but the circuit python library parses this to **decimal degrees**.
     - Haversine:  https://pypi.org/project/haversine/
     - angle:  https://towardsdatascience.com/calculating-the-bearing-between-two-geospatial-coordinates-66203f57e4b4

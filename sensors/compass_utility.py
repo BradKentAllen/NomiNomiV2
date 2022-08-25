@@ -63,7 +63,7 @@ class Compass:
     def __init__(self):
         self.sense_BNo055 = BNo055(self)
 
-    def read_compass_bearing(self, sensor_mgr):
+    def read_compass_bearing(self):
         euler = self.sense_BNo055.get_euler()
         if euler[0] is not None:
             if 0 <= euler[0] <= 360:
