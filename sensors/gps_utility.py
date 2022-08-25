@@ -13,8 +13,13 @@ rev 0.0.1 initial DEV
 __revision__ = 'v0.0.1'
 __status__ = 'DEV' # 'DEV', 'alpha', 'beta', 'production'
 
+import time
+import serial
+
+import adafruit_gps
+
 class Ultimate_GPS:
-    def __init__(self, sensor_mgr):
+    def __init__(self):
         '''Adafruit_Ultimate GPS
         The full GPS code has a host of options.
         Only the relevant code is used here
@@ -23,14 +28,6 @@ class Ultimate_GPS:
         Latitude: DDMM.MMMM (The first two characters are the degrees.) 
         Longitude: DDDMM.MMMM (The first three characters are the degrees.
         '''
-        if config.DEBUG == True: print('\ninit Ultimate GPS')
-
-        try:
-            import adafruit_gps
-        except ModuleNotFoundError:
-            raise AdafruitLibraryError('Need to load adafruit-circuitpython-gps (must use sudo)')
-
-        import serial
 
         uart = serial.Serial("/dev/ttyUSB0", baudrate=9600, timeout=10)
 
@@ -126,3 +123,27 @@ class Ultimate_GPS:
         bearing = int(bearing_radians * 180 / math.pi)
 
         return bearing
+
+
+if __name__ == "__main__":
+    print('\ntesting Ultimate GPS in gps_utility.py')
+    gps = Ultimate_GPS()
+    flag = 0
+
+    while True:
+        gps.update()
+
+        flag += 1
+        if flag >= 4:
+            flag = 0
+            gps_reading = gps.read()
+            print(f'{gps_reading[0]}: {gps_reading[1]}')
+            print(gps.read_time())
+
+        time.sleep(.3)
+
+
+
+
+
+
