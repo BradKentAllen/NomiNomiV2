@@ -6,6 +6,9 @@ created by: Brad Allen
 project/support: voyager2 / NomiNomi      # root or script it supports
 description:  Full package to heel from ADXL345
 
+Heel to Port is Negative
+Heel to Starboard is Positive
+
 Runs as an indendent self-test as well
 
 rev 0.0.1 initial DEV
@@ -13,13 +16,17 @@ rev 0.0.1 initial DEV
 __revision__ = 'v0.0.1'
 __status__ = 'DEV' # 'DEV', 'alpha', 'beta', 'production'
 
+import time
+import math
+
 import board
 import busio
 
 import adafruit_adxl34x
 
 
-def calc_roll_angle(self, accel_X):
+def calc_roll_angle(accel_X):
+    accel_X = float(accel_X)
     gravity = 9.8
     if (-1 * gravity) <= accel_X <= gravity:
         roll_angle_rad = math.asin(accel_X / gravity)
@@ -34,12 +41,11 @@ def get_radians(degrees):
     return (degrees * math.pi/180)
 
 class ADXL345:
-    def __init__(self, sensor_mgr):
-        self.mgr = sensor_mgr
+    def __init__(self):
         '''ADXL345 is fixed I2C address of 0x53 in Adafruit library
         '''
         # instantiate sensor object
-        i2c = self.mgr.busio.I2C(board.SCL, board.SDA)
+        i2c = busio.I2C(board.SCL, board.SDA)
         self.sensor = adafruit_adxl34x.ADXL345(i2c)
         
         self.acc_X = 0.0
@@ -99,10 +105,13 @@ class ADXL345:
 
 
 if __name__ == "__main__":
-	print('\nTest heel_utlity.py and ADXL345')
-	heel_sensor = ADXL345()
-	while True:
-		print(f'acc x: {heel_sensor.get_acc_X(True, True)}')
+    print('\nTest heel_utlity.py and ADXL345')
+    heel_sensor = ADXL345()
+    while True:
+        X_accel = heel_sensor.get_acc_X(True, True)
+        print(f'acc x: {X_accel}')
+        print(f'angle: {calc_roll_angle(X_accel)}')
+        time.sleep(1)
 
 
 
