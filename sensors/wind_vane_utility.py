@@ -15,6 +15,11 @@ __status__ = 'DEV' # 'DEV', 'alpha', 'beta', 'production'
 
 import bisect
 
+<<<<<<< HEAD
+=======
+import bisect
+
+>>>>>>> 5d126b5718bc24e5121ee3e600116da1ab5686fb
 import ads1115driver as ADC
 
 class Wind_Vane:
@@ -23,6 +28,7 @@ class Wind_Vane:
         '''
         print('\n\n### init Wind Vane)')
         #### Instantiate sensor object
+
         # I2C address can be adjusted or assigned here
         self.sense_ads1115 = ADC.ADS1115(
             address=0x48,
