@@ -26,20 +26,16 @@ import RPi_utilities as RPi_util
 goop = None
 
 
-    #########################
-    #### Button Function ####
-    #########################
+# ########################
+# ### Button Function ####
+# ########################
 
-def test():
-    print('MR_buttons test only')
+def test_button2():
+    print('Button 2 pressed')
 
 
-def test3_with_args():
-    print('MR_buttons: test3_with_args')
-    try:
-        print(f'the returned arg is: {goop.button3_args[0]}')
-    except IndexError:
-        print('IndexError in buttons test3_with args')
+def test_button3():
+    print('Button 3 pressed')
 
 
 def shutdown_RPi():
@@ -97,8 +93,8 @@ UI_dict = {
                 'line2': 'line 2',
                 'line2_justification': 'right',
                 },
-            'button2': test,
-            'button3': test3_with_args,
+            'button2': test_button2,
+            'button3': test_button3,
             },
         'MX': {
             'screen': {
@@ -122,7 +118,7 @@ UI_dict = {
 def next_screen():
     '''changes to next screen
     '''
-    #print('\n>>>> run UI.next_screen')
+    print('\n>>>> run UI.next_screen')
     next_screen_flag = False
     first_screen_group = None
     new_screen = None

@@ -117,6 +117,7 @@ while True and goop.main_thread_inhibit is False:
             last_second = HHMMSS[2]
             #### Every second jobs ####
             print(f'\n{HHMMSS}')
+            print(f'goop.init_UI: {goop.init_UI}')
 
             # ### always actions (startup and regular)
             if goop.sailing is True:
@@ -145,6 +146,7 @@ while True and goop.main_thread_inhibit is False:
                 # #### Regular Actions (after startup) ####
                 # ### Change button functions once
                 if goop.init_UI is True:
+                    print('\nNN_main, after startup init buttons')
                     machine.redefine_button_actions(
                         button1_function = UI.next_screen,
                         button2_function = UI.UI_dict[goop.current_screen_group][goop.current_screen].get('button2'),

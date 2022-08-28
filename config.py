@@ -66,25 +66,15 @@ WIFI_AUTO = True
 # These are non-sequentially numbered pins on most diagrams
 
 RPi_PINOUT_BCM = {
-    'red_LED': 5,
-    'yellow_LED': 11,   # on Jim Hawkins board
-    'blue_LED_1': 9,    # on Jim Hawkins board
-    'blue_LED_2': 10,   # on Jim Hawkins board
+    'pulse_LED': 14,
 
     # these are customizable
     # availabe types:  'LED', 'Output'
 
         # Header 1 (by power jack, 6-pin) ONLY 4-PIN on Modem Rider
-    'i_o_4': {'name': 'button_1', 'type': 'Button', 'pin': 14}, # Jim Hawkins, header 1, pin 1
-    'i_o_5': {'name': 'button_2', 'type': 'Button', 'pin': 15}, # Jim Hawkins, header 1, pin 2
-    'i_o_8': {'name': 'button_3', 'type': 'Button', 'pin': 18}, # Jim Hawkins, header 1, pin 3
-    'i_o_23': {'name': 'modem', 'type': 'Output', 'pin': 23}, # Jim Hawkins, header 1, pin 5
-    'i_o_24': {'name': 'router', 'type': 'Output', 'pin': 24}, # Jim Hawkins, header 1, pin 6
-
-        # Header 2 (on left side by i/o, 6-pin)
-    'i_o_12': {'name': 'cycling_LED', 'type': 'LED', 'pin': 12},  # Jim Hawkins, header 2, pin 3
-    'i_o_16': {'name': 'Internet_Bad_LED', 'type': 'LED', 'pin': 16},  # Jim Hawkins, header 2, pin 4
-    'i_o_20': {'name': 'Internet_Good_LED', 'type': 'LED', 'pin': 20},   # Jim Hawkins, header 2, pin 5
+    'i_o_5': {'name': 'button_3', 'type': 'Button', 'pin': 5},
+    'i_o_6': {'name': 'button_2', 'type': 'Button', 'pin': 6},
+    'i_o_13': {'name': 'button_1', 'type': 'Button', 'pin': 13},
     
 }
 

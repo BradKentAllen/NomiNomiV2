@@ -37,16 +37,19 @@ class Machine:
         # #### define gpio_zero objects
         # start with standard LED's
         self.gpio_objects = {
-            'blue_LED_1': LED(config.RPi_PINOUT_BCM.get('blue_LED_1')),
-            "blue_LED_2": LED(config.RPi_PINOUT_BCM.get('blue_LED_2')),
-            "yellow_LED": LED(config.RPi_PINOUT_BCM.get('yellow_LED')),
-            "red_LED": LED(config.RPi_PINOUT_BCM.get('red_LED')),
+            'pulse_LED': LED(config.RPi_PINOUT_BCM.get('pulse_LED')),
+            #'blue_LED_1': LED(config.RPi_PINOUT_BCM.get('blue_LED_1')),
+            #"blue_LED_2": LED(config.RPi_PINOUT_BCM.get('blue_LED_2')),
+            #"yellow_LED": LED(config.RPi_PINOUT_BCM.get('yellow_LED')),
+            #"red_LED": LED(config.RPi_PINOUT_BCM.get('red_LED')),
         }
 
         customizable_objects = {
             "i_o_4": None,
             "i_o_5": None,
+            "i_o_6": None,
             "i_o_8": None,
+            "i_o_13": None,
             "i_o_23": None,
             "i_o_24": None,
 
@@ -58,14 +61,18 @@ class Machine:
         # add custom pins
         for key, value in customizable_objects.items():
             if key in customizable_objects:
-                if config.RPi_PINOUT_BCM[key].get('type') == "LED": 
-                    self.gpio_objects[config.RPi_PINOUT_BCM[key].get('name')] = LED(config.RPi_PINOUT_BCM[key].get('pin'))
-                elif config.RPi_PINOUT_BCM[key].get('type') == "Output":
-                    self.gpio_objects[config.RPi_PINOUT_BCM[key].get('name')] = DigitalOutputDevice(config.RPi_PINOUT_BCM[key].get('pin'))
-                elif config.RPi_PINOUT_BCM[key].get('type') == "Button":
-                    self.gpio_objects[config.RPi_PINOUT_BCM[key].get('name')] = Button(config.RPi_PINOUT_BCM[key].get('pin'))
-                else:
-                    print('error v2_gpio: called output type that does not exist')
+                # check to make sure the key is in the config pinout dict
+                if config.RPi_PINOUT_BCM.get(key) is not None:
+                    print(f'process this pinout key: {key}, type: {config.RPi_PINOUT_BCM[key].get("type")}')
+                    if config.RPi_PINOUT_BCM[key].get('type') == "LED": 
+                        self.gpio_objects[config.RPi_PINOUT_BCM[key].get('name')] = LED(config.RPi_PINOUT_BCM[key].get('pin'))
+                    elif config.RPi_PINOUT_BCM[key].get('type') == "Output":
+                        self.gpio_objects[config.RPi_PINOUT_BCM[key].get('name')] = DigitalOutputDevice(config.RPi_PINOUT_BCM[key].get('pin'))
+                    elif config.RPi_PINOUT_BCM[key].get('type') == "Button":
+                        print('this is a button')
+                        self.gpio_objects[config.RPi_PINOUT_BCM[key].get('name')] = Button(config.RPi_PINOUT_BCM[key].get('pin'))
+                    else:
+                        print('error v2_gpio: called output type that does not exist')
             else:
                 print('error v2_gpio: called for key that is not in customizable objects')
 
