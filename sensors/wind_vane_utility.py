@@ -15,7 +15,10 @@ __status__ = 'DEV' # 'DEV', 'alpha', 'beta', 'production'
 
 import bisect
 
-import ads1115driver as ADC
+try:
+    import ads1115driver as ADC
+except ModuleNotFoundError:
+    import sensors.ads1115driver as ADC
 
 
 class Wind_Vane:

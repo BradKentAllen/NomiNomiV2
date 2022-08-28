@@ -22,7 +22,7 @@ __status__ = 'DEV' # 'DEV', 'alpha', 'beta', 'production'
 #### (1.2) # Time Zone
 local_time_zone = 'US/Pacific'
 
-use_hwclock = True  # will use hardware clock instead of Internet time
+use_hwclock = False # will use hardware clock instead of Internet time
 
 # XXXX for UTC: 
 # 'US/Aleutian', 'US/Hawaii', 'US/Alaska', 'US/Arizona', 'US/Michigan'
@@ -95,7 +95,7 @@ RPi_PINOUT_BCM = {
 
 #### (3.1) # LCD setup
 # 'I2C/16x2', 'I2C/20x4', 'wired/16x2', None
-LCD_TYPE = 'I2C/16x4'
+LCD_TYPE = 'I2C/20x4'
 I2C_LCD_ADDRESS = 0x23
 BACKLIGHT_OFF_TIME = 3  # minutes until backlight goes off
 
