@@ -82,7 +82,8 @@ while True and goop.main_thread_inhibit is False:
         HHMMSS = RPi_util.get_time(config.local_time_zone)
 
         #### Jobs that run every poll
-        # none
+        # XXX> call GPS update (this must be called at least twice as fast as GPS update
+        # which is set at 1 second)
 
         #### Second ####
         if last_second != HHMMSS[2]:

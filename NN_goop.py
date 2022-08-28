@@ -15,8 +15,12 @@ class Goop():
     ''' data
     '''
     ### Sailboat Sensor Data ####
-    heading: int = 999
-    wind: str = None
+    heading_compass: int = 999 # read from magnetometer
+    heading_boat: int = 999 # compensated to result in boat heading
+    heading_course: int = 999 # calculated in navigation
+    # note: heading_differential is a local variable only
+
+    wind_zone: str = None
     heel: int = 999
 
     gps_fix: bool = False
@@ -38,6 +42,8 @@ class Goop():
     
     home_lat: float = 0.0
     home_lon: float = 0.0
+
+    # heading_course is above in sailboat sensor data
 
     #### NomiNomi Boat Parameters ####
     RUDDER_ANGLE_MAX: int = 35
