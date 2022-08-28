@@ -15,12 +15,8 @@ __status__ = 'DEV' # 'DEV', 'alpha', 'beta', 'production'
 
 import bisect
 
-<<<<<<< HEAD
-=======
-import bisect
-
->>>>>>> 5d126b5718bc24e5121ee3e600116da1ab5686fb
 import ads1115driver as ADC
+
 
 class Wind_Vane:
     def __init__(self):
@@ -149,6 +145,9 @@ class Wind_Vane:
         '''
 
     def get_zone(self, tack, angle):
+        '''XXXX - not sure why this was here
+        Note that zone_dict is not referenced anywhere
+        '''
         if tack == 'port':
             idx = bisect.bisect_left(zone_dict.get('port_maxs'), angle)
             if idx < len(zone_dict['port_maxs']) and zone_dict['port_mins'][idx] <= angle <= zone_dict['port_maxs'][idx]:

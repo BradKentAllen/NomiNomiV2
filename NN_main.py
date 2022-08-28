@@ -35,18 +35,17 @@ from time import time
 from v2_gpio import Machine
 import RPi_utilities as RPi_util
 from v2_LCD_utility import LCD_manager
-from sensors.check_internet import check_URL
 
 # #### Application-Specific Imports ####
 import config
-from MR_goop import Goop
-import MR_UI as UI
+from NN_goop import Goop
+import NN_UI as UI
 
 # import sensors
-from .sensors.gps_utility import Ultimate_GPS
-from .sensors.compass_utility import Compass
-from .sensors.heel_utility import ADXL345
-from .sensors.wind_vane_utility import Wind_Vane
+from sensors.gps_utility import Ultimate_GPS
+from sensors.compass_utility import Compass
+from sensors.heel_utility import ADXL345
+from sensors.wind_vane_utility import Wind_Vane
 
 # instantiate key objects
 machine = Machine()
@@ -70,15 +69,18 @@ start_milli = time() * 1000
 # get current time and set for "last"
 if config.use_hwclock is True:
     # XXX> add hwclock read here
-else::
+    pass
+else:
     # use Internet clock
     (last_hour, last_minute, last_second) = RPi_util.get_time(config.local_time_zone)
 
 # #### Initialize UI
 # LCD welcome display (will stay on for goop.startup_seconds)
 _menu_dict = UI.UI_dict['welcome'].get('screen')
-_menu_dict['line1'] = f'{__project_name__}'
-_menu_dict['line2'] = f'rev: {__revision__}'
+_menu_dict['line2'] = f'{__project_name__}'
+_menu_dict['line3'] = f'rev: {__revision__}'
+IP_address = RPi_util.get_IP_address()
+_menu_dict['line4'] = f'{IP_address}'
 lcd_mgr.display_menu(_menu_dict)
 
 # initialize key parameters
@@ -90,31 +92,31 @@ goop.button1_args['lcd'] = lcd_mgr  # this allows UI to print to lcd
 while True and goop.main_thread_inhibit is False:
     milli = (time() * 1000) - start_milli
     
-    #### deal with millis rolling
+    # ### deal with millis rolling
     # this should never happen
     if milli < 0:
         milli = (time() * 1000)
         last_milli = 0
 
-
     if (milli - last_milli) >= config.POLL_MILLIS:
         # get current time
         if config.use_hwclock is True:
             # XXX> add hwclock read here
-        else::
+            pass
+        else:
             # use Internet clock
             HHMMSS = RPi_util.get_time(config.local_time_zone)
 
-        #### Jobs that run every poll
+        # ### Jobs that run every poll
         # XXX> call GPS update (this must be called at least twice as fast as GPS update
         # which is set at 1 second)
 
-        #### Second ####
+        # ### Second ####
         if last_second != HHMMSS[2]:
             # redo last_second
             last_second = HHMMSS[2]
             #### Every second jobs ####
-            # print(f'\n{HHMMSS}')
+            print(f'\n{HHMMSS}')
 
             # ### always actions (startup and regular)
             if goop.sailing is True:
@@ -122,6 +124,7 @@ while True and goop.main_thread_inhibit is False:
 
                 # #### GPS read ####
                 # XXX> read_GPS here
+                pass
 
                 # #### Sensors Read ####
 
@@ -136,10 +139,6 @@ while True and goop.main_thread_inhibit is False:
                 goop.startup_seconds -= 1
             elif goop.startup_seconds == 10:
                 '''performs a screen change at 10 seconds'''
-                _menu_dict = UI.UI_dict['welcome'].get('screen')
-                IP_address = RPi_util.get_IP_address()
-                _menu_dict['line2'] = f'{IP_address}'
-                lcd_mgr.display_menu(_menu_dict)
                 goop.startup_seconds -= 1
 
             else:

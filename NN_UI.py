@@ -79,8 +79,12 @@ UI_dict = {
         'screen': {
             'line1': 'Welcome',
             'line1_justification': 'left',
-            'line2': 'to Voyager',
+            'line2': 'line 2',
             'line2_justification': 'left',
+            'line3': 'line 3',
+            'line3_justification': 'left',
+            'line4': 'line 4',
+            'line4_justification': 'left',
             },
         'button2': None,
         'button3': None,
