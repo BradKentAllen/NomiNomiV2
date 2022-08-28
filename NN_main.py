@@ -42,6 +42,8 @@ import config
 from MR_goop import Goop
 import MR_UI as UI
 
+from .sensors.gps_utility import 
+
 # instantiate key objects
 machine = Machine()
 
@@ -93,21 +95,14 @@ while True and goop.main_thread_inhibit is False:
             # print(f'\n{HHMMSS}')
 
             # ### always actions (startup and regular)
-            ''' XXX test flash LED's
-            if goop.flash_flag is True:
-                machine.LED("blue_LED_1", "ON")
-                machine.LED("blue_LED_2", "OFF")
-                machine.LED("yellow_LED", "OFF")
-                machine.LED("red_LED", "ON")
-                goop.flash_flag = False
-            else:
-                machine.LED("blue_LED_1", "OFF")
-                machine.LED("blue_LED_2", "ON")
-                machine.LED("yellow_LED", "ON")
-                machine.LED("red_LED", "OFF")
-                
-                goop.flash_flag = True
-            '''
+            if goop.sailing is True:
+                # #### Sailing every second actions ####
+
+                # #### GPS read ####
+                # XXX> read_GPS here
+
+                # #### Sensors Read ####
+
 
 
             # #####################################

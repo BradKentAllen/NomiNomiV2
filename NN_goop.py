@@ -28,6 +28,8 @@ class Goop():
     gps_lat: float = 0.0
 
     #### Sailboat Sailing Data ####
+    sailing: bool = False   # tells is in sailing mode
+    sail_mode: str = 'close'  # irons, tacking, close, broad, run, jibing
     # boat settings (servos set to these parameters)
     # rudder_angle: positive is to starboard (servo input is 90 + rudderAngle)
     rudder_angle_port: int = 0

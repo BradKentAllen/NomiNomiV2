@@ -50,6 +50,11 @@ network={
   * heading_course - heading to next waypoint (nav_leg direction)
   * heading_differential = heading_boat - heading_course
     * a positive heading_differential requires steering to starboard, this is a positive rudder
+* Nav Units
+  * 69 miles in one degree of lattitude
+  * at 45 deg lattitude, one degree of longitude is 41 miles
+  * 1 knot = 1.7 ft/sec
+  * 5 sec at 1 knot = 8.5 ft
 
 ## Hardware Technical Notes
 
