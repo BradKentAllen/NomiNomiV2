@@ -25,6 +25,7 @@ def get_time_stamp(local_time_zone='UTC', time_format='HMS'):
     else:
         return now_local.strftime('%H:%M:%S')
 
+
 def get_time(local_time_zone='UTC'):
     now_local = datetime.now(pytz.timezone(local_time_zone))
     HH = now_local.strftime('%H')
@@ -32,10 +33,23 @@ def get_time(local_time_zone='UTC'):
     SS = now_local.strftime('%S')
     return (HH, MM, SS)
 
+
 def get_hwclock_time():
-    _current_time = os.system("sudo hwclock -r")
-    time_str = "XXX INW:  HH:MM:SS"
-    return time_str
+    try:
+        now_hwclock = subprocess.getoutput("sudo hwclock -r")
+    except subprocess.CalledProcessError:
+        return 'no hwclock'
+    else:
+        now_local = datetime.strptime(now_hwclock, "%Y-%m-%d %H:%M:%S-%Z")
+
+        print(now_hwclock)
+        print(type(now_hwclock))
+        HH = now_local.strftime('%H')
+        MM = now_local.strftime('%M')
+        SS = now_local.strftime('%S')
+        return (HH, MM, SS)
+
+
 
 #### RPI UTILITIES ####
 def setRTC(year, month, date, hour, minute):
