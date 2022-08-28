@@ -42,7 +42,11 @@ import config
 from MR_goop import Goop
 import MR_UI as UI
 
-from .sensors.gps_utility import 
+# import sensors
+from .sensors.gps_utility import Ultimate_GPS
+from .sensors.compass_utility import Compass
+from .sensors.heel_utility import ADXL345
+from .sensors.wind_vane_utility import Wind_Vane
 
 # instantiate key objects
 machine = Machine()
@@ -53,9 +57,22 @@ UI.goop = goop  # put goop into UI
 
 lcd_mgr = LCD_manager()
 
+# sensor objects
+gps = Ultimate_GPS()
+compass = Compass()
+heel_sensor = ADXL345()
+wind_vane = Wind_Vane()
+
+# #### timing parameters
 last_milli = 0
 start_milli = time() * 1000
-(last_hour, last_minute, last_second) = RPi_util.get_time(config.local_time_zone)
+
+# get current time and set for "last"
+if config.use_hwclock is True:
+    # XXX> add hwclock read here
+else::
+    # use Internet clock
+    (last_hour, last_minute, last_second) = RPi_util.get_time(config.local_time_zone)
 
 # #### Initialize UI
 # LCD welcome display (will stay on for goop.startup_seconds)
@@ -81,7 +98,12 @@ while True and goop.main_thread_inhibit is False:
 
 
     if (milli - last_milli) >= config.POLL_MILLIS:
-        HHMMSS = RPi_util.get_time(config.local_time_zone)
+        # get current time
+        if config.use_hwclock is True:
+            # XXX> add hwclock read here
+        else::
+            # use Internet clock
+            HHMMSS = RPi_util.get_time(config.local_time_zone)
 
         #### Jobs that run every poll
         # XXX> call GPS update (this must be called at least twice as fast as GPS update
