@@ -8,7 +8,9 @@ Pass:  goose13
 
 
 
+##### wpa_supplicant for WIFI
 
+looks for mobile WIFI first then AllenNet1
 
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -35,7 +37,19 @@ network={
 * Wiggle boat during and after power up to engage compass
 * Boat needs to be pointed into a sail-able wind angle when START is pressed.  It will intially sail this course until a distance from home.
 
+#### Standards and Definitions
 
+* Heel
+  * heel to starboard is positive (on a port tack, heel will be positive)
+  * heel to port negative
+* Rudder
+  * rudder steer to starboard is positive (rudder turned to starboard)
+* Heading
+  * heading_compass - compass direct reading
+  * heading_boat - heading_compass compensated for declination and other corrections
+  * heading_course - heading to next waypoint (nav_leg direction)
+  * heading_differential = heading_boat - heading_course
+    * a positive heading_differential requires steering to starboard, this is a positive rudder
 
 ## Hardware Technical Notes
 
